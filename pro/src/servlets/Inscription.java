@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bdd.enregistrement;
 import beans.Utilisateur;
 import forms.InscriptionForm;
 
@@ -14,6 +15,7 @@ public class Inscription extends HttpServlet {
     public static final String ATT_USER = "utilisateur";
     public static final String ATT_FORM = "form";
     public static final String VUE = "/WEB-INF/signup.jsp";
+    public static final String CONNEXION = "/WEB-INF/connexion.jsp";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
         /* Affichage de la page d'inscription */
@@ -30,7 +32,10 @@ public class Inscription extends HttpServlet {
         /* Stockage du formulaire et du bean dans l'objet request */
         request.setAttribute( ATT_FORM, form );
         request.setAttribute( ATT_USER, utilisateur );
-
+        
+        enregistrement tableinvestisseur = new enregistrement();
+        tableinvestisseur.ajouterUtilisateur(utilisateur);
+        
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 }

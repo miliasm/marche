@@ -14,7 +14,7 @@
           <form id = "formulairesignup" method="post" action="signup">
             <fieldset>
                 <legend>Sign Up</legend>
-                <p>Vous pouvez vous inscrire via ce formulaire.</p>
+                <p>Veuillez remplir ce formulaire pour vous inscrire sur notre plateforme.</p>
                 <label for="email">Adresse email <span class="requis">*</span></label>
                 <input type="email" id="email" name="email" value="<c:out value="${utilisateur.email}"/>" size="20" maxlength="60" />
                 <span class="erreur">${form.erreurs['email']}</span>
