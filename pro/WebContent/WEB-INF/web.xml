@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee">
-  <display-name>pro</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name>marcheSecondaire</display-name>
   <welcome-file-list>
     <welcome-file>accueil.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
+   <servlet>
     <servlet-name>Inscription</servlet-name>
-    <servlet-class>servlets.Inscription</servlet-class>
+    <servlet-class>marcheSecondaire.servlets.Inscription</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Inscription</servlet-name>
@@ -14,7 +14,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Connexion</servlet-name>
-    <servlet-class>servlets.Connexion</servlet-class>
+    <servlet-class>marcheSecondaire.servlets.Connexion</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Connexion</servlet-name>
@@ -22,10 +22,27 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>Deconnexion</servlet-name>
-    <servlet-class>servlets.Deconnexion</servlet-class>
+    <servlet-class>marcheSecondaire.servlets.Deconnexion</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Deconnexion</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>InvestPot</servlet-name>
+    <servlet-class>marcheSecondaire.servlets.InvestPot</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InvestPot</servlet-name>
+    <url-pattern>/investPostPages/connected</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CompleterInv</servlet-name>
+    <servlet-class>marcheSecondaire.servlets.CompleterInv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CompleterInv</servlet-name>
+    <url-pattern>/investPostPages/completer</url-pattern>
   </servlet-mapping>
 </web-app>

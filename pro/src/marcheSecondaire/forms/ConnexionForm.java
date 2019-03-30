@@ -1,19 +1,19 @@
-package forms;
+package marcheSecondaire.forms;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import beans.Utilisateur;
+import marcheSecondaire.beans.Utilisateur;
 
 public final class ConnexionForm {
-    private static final String CHAMP_EMAIL  = "email";
-    private static final String CHAMP_PASS   = "motdepasse";
 
+	private static final String CHAMP_EMAIL  = "email";
+    private static final String CHAMP_PASS   = "motdepasse";
     private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
-
+    
     public String getResultat() {
         return resultat;
     }
@@ -21,7 +21,7 @@ public final class ConnexionForm {
     public Map<String, String> getErreurs() {
         return erreurs;
     }
-
+    
     public Utilisateur connecterUtilisateur( HttpServletRequest request ) {
         /* Récupération des champs du formulaire */
         String email = getValeurChamp( request, CHAMP_EMAIL );
@@ -42,7 +42,7 @@ public final class ConnexionForm {
         } catch ( Exception e ) {
             setErreur( CHAMP_PASS, e.getMessage() );
         }
-        utilisateur.setMotDePasse( motDePasse );
+        utilisateur.setPassword( motDePasse );
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty() ) {
@@ -57,7 +57,7 @@ public final class ConnexionForm {
     /**
      * Valide l'adresse email saisie.
      */
-    private void validationEmail( String email ) throws Exception {
+    private void validationEmail(String email) throws Exception {
         if ( email != null && !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
             throw new Exception( "Merci de saisir une adresse mail valide." );
         }
@@ -66,7 +66,7 @@ public final class ConnexionForm {
     /**
      * Valide le mot de passe saisi.
      */
-    private void validationMotDePasse( String motDePasse ) throws Exception {
+    private void validationMotDePasse(String motDePasse) throws Exception {
         if ( motDePasse != null ) {
             if ( motDePasse.length() < 3 ) {
                 throw new Exception( "Le mot de passe doit contenir au moins 3 caractères." );
@@ -79,7 +79,7 @@ public final class ConnexionForm {
     /*
      * Ajoute un message correspondant au champ spécifié à la map des erreurs.
      */
-    private void setErreur( String champ, String message ) {
+    private void setErreur(String champ, String message) {
         erreurs.put( champ, message );
     }
 
@@ -87,9 +87,9 @@ public final class ConnexionForm {
      * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
      * sinon.
      */
-    private static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
-        String valeur = request.getParameter( nomChamp );
-        if ( valeur == null || valeur.trim().length() == 0 ) {
+    private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
+        String valeur = request.getParameter(nomChamp);
+        if (valeur == null || valeur.trim().length() == 0) {
             return null;
         } else {
             return valeur;

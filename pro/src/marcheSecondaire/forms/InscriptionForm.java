@@ -1,20 +1,30 @@
-package forms;
+package marcheSecondaire.forms;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import beans.Utilisateur;
+import marcheSecondaire.beans.Societe;
+import marcheSecondaire.beans.Utilisateur;
 
 public final class InscriptionForm {
-    private static final String CHAMP_EMAIL  = "email";
+
+	private static final String CHAMP_EMAIL  = "email";
     private static final String CHAMP_PASS   = "motdepasse";
     private static final String CHAMP_CONF   = "confirmation";
     private static final String CHAMP_NOM    = "nom";
-
+    private static final String CHAMP_PRENOM    = "prenom";
+    private static final String CHAMP_SOCIETE = "societe";
     private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
+    
+    private boolean correct = false; // indiquer si le formulaire est bon
+    private Societe societeObj;
+    
+    public boolean isCorrect() {
+		return correct;
+	}
     
     public String getResultat() {
         return resultat;
@@ -24,14 +34,24 @@ public final class InscriptionForm {
         return erreurs;
     }
     
-    public Utilisateur inscrireUtilisateur( HttpServletRequest request ) {
+    public Utilisateur inscrireUtilisateurInvest( HttpServletRequest request) {
         String email = getValeurChamp( request, CHAMP_EMAIL );
         String motDePasse = getValeurChamp( request, CHAMP_PASS );
         String confirmation = getValeurChamp( request, CHAMP_CONF );
         String nom = getValeurChamp( request, CHAMP_NOM );
+        String prenom = getValeurChamp( request, CHAMP_PRENOM );
 
         Utilisateur utilisateur = new Utilisateur();
-
+        
+        try {
+            validationMotsDePasse( motDePasse, confirmation );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_PASS, e.getMessage() );
+            setErreur( CHAMP_CONF, null );
+        }
+        utilisateur.setPassword( motDePasse );
+        utilisateur.setType(3);
+        
         try {
             validationEmail( email );
         } catch ( Exception e ) {
@@ -40,12 +60,53 @@ public final class InscriptionForm {
         utilisateur.setEmail( email );
 
         try {
-            validationMotsDePasse( motDePasse, confirmation );
+            validationNom( nom );
         } catch ( Exception e ) {
-            setErreur( CHAMP_PASS, e.getMessage() );
-            setErreur( CHAMP_CONF, null );
+            setErreur( CHAMP_NOM, e.getMessage() );
         }
-        utilisateur.setMotDePasse( motDePasse );
+        utilisateur.setNom( nom );
+        
+        try {
+            validationNom( prenom );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_PRENOM, e.getMessage() );
+        }
+        utilisateur.setPrenom( prenom );
+
+        if ( erreurs.isEmpty() ) {
+            resultat = "Succès de l'inscription. Connectez-vous !";
+            this.correct = true;
+        } else {
+            resultat = "Échec de l'inscription.";
+            this.correct = false;
+        }
+        
+        return utilisateur;
+    }
+    
+    public Utilisateur inscrireUtilisateurMmbr( HttpServletRequest request) {
+    	String email = getValeurChamp( request, CHAMP_EMAIL );
+        String nom = getValeurChamp( request, CHAMP_NOM );
+        String prenom = getValeurChamp( request, CHAMP_PRENOM );
+        String societe = getValeurChamp(request, CHAMP_SOCIETE);
+    	societeObj = new Societe();
+    	Utilisateur utilisateur = new Utilisateur();
+    	
+    	utilisateur.setType(1);
+    	try {
+            validationNom(societe);
+        } catch ( Exception e ) {
+            setErreur(CHAMP_SOCIETE, e.getMessage() );
+        }
+    	societeObj.setNom(societe);
+    	// ###########
+    	
+    	try {
+            validationEmail( email );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_EMAIL, e.getMessage() );
+        }
+        utilisateur.setEmail( email );
 
         try {
             validationNom( nom );
@@ -53,15 +114,32 @@ public final class InscriptionForm {
             setErreur( CHAMP_NOM, e.getMessage() );
         }
         utilisateur.setNom( nom );
-
+        
+        try {
+            validationNom( prenom );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_PRENOM, e.getMessage() );
+        }
+        utilisateur.setPrenom( prenom );
+        
         if ( erreurs.isEmpty() ) {
-            resultat = "Succès de l'inscription.";
+            resultat = "Succès de l'inscription. Connectez-vous !";
+            this.correct = true;
         } else {
             resultat = "Échec de l'inscription.";
+            this.correct = false;
         }
         
         return utilisateur;
     }
+    
+    public Societe inscrireSociete() {
+    	return this.societeObj;
+    }
+    
+    /*
+     * Traitements sur les données
+     * */
     
     private void validationEmail( String email ) throws Exception {
         if ( email != null ) {
@@ -87,7 +165,7 @@ public final class InscriptionForm {
 
     private void validationNom( String nom ) throws Exception {
         if ( nom != null && nom.length() < 3 ) {
-            throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
+            throw new Exception( "Ce champ doit contenir au moins 3 caractères." );
         }
     }
     

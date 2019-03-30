@@ -49,6 +49,13 @@ form .requis{
        height: 85%;
        background-color: #DBDFE7;
        }
+#formulaireprofil{
+       position: absolute;
+       top:10%; 
+       width: 100%;
+       height: 85%;
+       background-color: #CAD1F9;
+       }
 #connexion{
        position: absolute;
        top:10%; 
@@ -76,6 +83,15 @@ form .requis{
         left:5%;
         font-family: Bell MT;
         font-size: 55px;
+        font-weight: 900;
+        color: #FEFEFF;
+        }
+#bienvenue{
+        position: absolute;
+        top:35%; 
+        left:5%;
+        font-family: Bell MT;
+        font-size: 30px;
         font-weight: 900;
         color: #FEFEFF;
         }
@@ -145,4 +161,4 @@ form .requis{
 }
 .erreur {
     color: #900;
-}
+} 
