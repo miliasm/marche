@@ -17,25 +17,26 @@
             </div>   
         </header>
         <section id ="formulaireprofil"> 
-            <form id = "formulairesignup" method="post" action="signup">
+            <form id = "formulaire" method="post" action="completer">
               <fieldset>
                 <legend>Profil Invesitisseur</legend>
                 <p>Afin de completer votre profil veuillez remplir ce formulaire.</p>
-                <label for="CIN">CIN<span class="requis">*</span></label>
-                <input type="text" id="CIN" name="CIN" value="" size="20" maxlength="60" />
-                <span class="erreur">${form.erreurs['CIN']}</span>
+                <label for="cin">CIN<span class="requis">*</span></label>
+                <input type="text" id="cin" name="cin" value="" size="20" maxlength="60" />
+                <span class="erreur">${form.erreurs['cin']}</span>
                 <br />
-                <label for="CarteBancaire">N° Carte Bancaire<span class="requis">*</span></label>
-                <input type="number" id="CarteBancaire" name="CarteBancaire" value="" size="20" maxlength="20" />
-                <span class="erreur">${form.erreurs['CarteBancaire']}</span>
+                <label for="carte">N° Carte Bancaire<span class="requis">*</span></label>
+                <input type="text" id="carte" name="carte" value="" size="20" maxlength="16" />
+                <span class="erreur">${form.erreurs['carte']}</span>
                 <br />
-                <label for="DateExpiration">Date d'expiration<span class="requis">*</span></label>
-                <input type="date" id="DateExpiration" name="DateExpiration" value="" size="20" maxlength="20" />
-                <span class="erreur">${form.erreurs['DateExpiration']}</span>
+                <label for="dateexp">Date d'expiration<span class="requis">*</span></label>
+                <input type="date" id="dateexp" name="dateexp" value="" size="20" maxlength="20" />
+                <span class="erreur">${form.erreurs['dateexp']}</span>
                 <br />
-                <input type="submit" value="Inscription" class="sansLabel" />
+                <input type="submit" value="Completer Profil" class="sansLabel" />
                 <br />
                 <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+                
               </fieldset>
             </form>
         </section> 

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 body{
      margin:0;
      padding:0;
@@ -42,6 +41,12 @@ form input.sansLabel{
 form .requis{
           color: #c00;
           }
+#des{
+          margin: 3px 3px 0px 50px;
+}
+#secteur{
+	      margin: 3px 3px 0px 50px;
+}
 #SignUp{
        position: absolute;
        top:10%; 
@@ -63,14 +68,10 @@ form .requis{
        height: 85%;
        background-color: #DBDFE7;
        }
-#formulairesignup{
+#formulaire{
             position: relative;
-            margin-top: 100px;
-            } 
-#formulaireconnexion{
-            position: relative;
-            margin-top: 100px;
-            }                          
+            margin-top: 50px;
+            }                         
 #wal{
      position: absolute;
      top:10%; 
@@ -93,7 +94,7 @@ form .requis{
         font-family: Bell MT;
         font-size: 30px;
         font-weight: 900;
-        color: #FEFEFF;
+        color: #07163B;
         }
 #AM{
     position: relative;
@@ -162,3 +163,8 @@ form .requis{
 .erreur {
     color: #900;
 } 
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Bell MT, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Bell MT, sans-serif;color:#FEFEFF; font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-7btt{font-weight:bold;border-color:inherit;text-align:center;vertical-align:top;background-color: #07163B}
+.tg .tg-0lax{text-align:left;vertical-align:top}

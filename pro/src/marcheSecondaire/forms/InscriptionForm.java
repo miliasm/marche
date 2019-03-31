@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import marcheSecondaire.beans.Secteur;
 import marcheSecondaire.beans.Societe;
 import marcheSecondaire.beans.Utilisateur;
 
@@ -16,11 +17,15 @@ public final class InscriptionForm {
     private static final String CHAMP_NOM    = "nom";
     private static final String CHAMP_PRENOM    = "prenom";
     private static final String CHAMP_SOCIETE = "societe";
+    private static final String CHAMP_CAP = "capitalisation";
+    private static final String CHAMP_SEC = "secteur";
+    private static final String CHAMP_DESC = "description";
     private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
     
     private boolean correct = false; // indiquer si le formulaire est bon
     private Societe societeObj;
+    private Secteur secteurObj;
     
     public boolean isCorrect() {
 		return correct;
@@ -89,7 +94,12 @@ public final class InscriptionForm {
         String nom = getValeurChamp( request, CHAMP_NOM );
         String prenom = getValeurChamp( request, CHAMP_PRENOM );
         String societe = getValeurChamp(request, CHAMP_SOCIETE);
+        String capitalisation = getValeurChamp(request, CHAMP_CAP);
+        String secteur = getValeurChamp(request, CHAMP_SEC);
+        String description = getValeurChamp(request, CHAMP_DESC);
+        
     	societeObj = new Societe();
+    	secteurObj = new Secteur();
     	Utilisateur utilisateur = new Utilisateur();
     	
     	utilisateur.setType(1);
@@ -99,6 +109,17 @@ public final class InscriptionForm {
             setErreur(CHAMP_SOCIETE, e.getMessage() );
         }
     	societeObj.setNom(societe);
+    	
+    	try {
+            validationCap(capitalisation);
+        } catch ( Exception e ) {
+            setErreur(CHAMP_CAP, e.getMessage() );
+        }
+    	societeObj.setCapitalisation(Integer.valueOf(capitalisation));
+    	
+    	secteurObj.setNom(secteur);
+    	
+    	societeObj.setDescription(description);
     	// ###########
     	
     	try {
@@ -137,6 +158,10 @@ public final class InscriptionForm {
     	return this.societeObj;
     }
     
+    public Secteur getSecteur() {
+    	return this.secteurObj;
+    }
+    
     /*
      * Traitements sur les données
      * */
@@ -166,6 +191,16 @@ public final class InscriptionForm {
     private void validationNom( String nom ) throws Exception {
         if ( nom != null && nom.length() < 3 ) {
             throw new Exception( "Ce champ doit contenir au moins 3 caractères." );
+        }
+    }
+    
+    private void validationCap( String nom ) throws Exception {
+        if ( nom == null  ) {
+            throw new Exception( "Ce champ doit etre non vide !." );
+        }else {
+        	if(!nom.matches("\\d+")) {
+        		throw new Exception( "Ce champ doit contenir que des chiffres !." );
+        	}
         }
     }
     

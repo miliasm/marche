@@ -4,10 +4,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 import marcheSecondaire.beans.Societe;
 import marcheSecondaire.beans.Utilisateur;
@@ -81,6 +83,8 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			return utilisateur;
 		}
 	}
+	
+	
 
 	@Override
 	public List<Utilisateur> lister() {
@@ -106,6 +110,89 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public Utilisateur completerInv(Utilisateur utilisateur) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connexion = (Connection) daoFactory.getConnection();
+			preparedStatement = (PreparedStatement) connexion.prepareStatement("UPDATE utilisateur SET cin=?, carte=?, dateexp=?, type=? WHERE id_utilisateur=?;");
+			preparedStatement.setString(1, utilisateur.getCin());
+			preparedStatement.setString(2, utilisateur.getCarte());
+			preparedStatement.setDate(3, java.sql.Date.valueOf((utilisateur.getDateexp())));
+			preparedStatement.setInt(4, 2);
+			preparedStatement.setInt(5, utilisateur.getId_utilisateur());
+			
+			preparedStatement.executeUpdate();
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Utilisateur> listerInv() {
+		List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultat = null;
+
+        try {
+            connexion = (Connection) daoFactory.getConnection();
+            preparedStatement = (PreparedStatement) connexion.prepareStatement("SELECT nom, prenom, cin FROM utilisateur where type=?;");
+            preparedStatement.setInt(1, 2);
+            resultat = preparedStatement.executeQuery();
+
+            while (resultat.next()) {
+                String nom = resultat.getString("nom");
+                String prenom = resultat.getString("prenom");
+                String cin = resultat.getString("cin");
+
+                Utilisateur utilisateur = new Utilisateur();
+                utilisateur.setNom(nom);
+                utilisateur.setPrenom(prenom);
+                utilisateur.setCin(cin);
+
+                utilisateurs.add(utilisateur);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return utilisateurs;
+    }
+
+	@Override
+	public List<Utilisateur> listerMmbr() {
+		List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultat = null;
+
+        try {
+            connexion = (Connection) daoFactory.getConnection();
+            preparedStatement = (PreparedStatement) connexion.prepareStatement("SELECT nom, prenom, id_societe FROM utilisateur where type=?;");
+            preparedStatement.setInt(1, 1);
+            resultat = preparedStatement.executeQuery();
+
+            while (resultat.next()) {
+                String nom = resultat.getString("nom");
+                String prenom = resultat.getString("prenom");
+                int id_societe = resultat.getInt("id_societe");
+
+                Utilisateur utilisateur = new Utilisateur();
+                utilisateur.setNom(nom);
+                utilisateur.setPrenom(prenom);
+                utilisateur.setSociete(id_societe);
+
+                utilisateurs.add(utilisateur);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return utilisateurs;
 	}
 
 }

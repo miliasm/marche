@@ -13,7 +13,7 @@
     <body>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <section id ="connexion">
-        <form id ="formulaireconnexion" method="post" action="connexion">
+        <form id ="formulaire" method="post" action="connexion">
             <fieldset>
                 <legend>Connexion</legend>
                 <p>Vous pouvez vous connecter via ce formulaire.</p>

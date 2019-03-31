@@ -1,5 +1,7 @@
 package marcheSecondaire.beans;
 
+import java.util.Date;
+
 public class Utilisateur {
 
 	private int id_utilisateur;
@@ -9,7 +11,28 @@ public class Utilisateur {
 	private String password;
 	private int societe;
 	private int type;
+	private String cin;
+	private String carte;
+	private String dateexp;
 	
+	public String getCin() {
+		return cin;
+	}
+	public void setCin(String cin) {
+		this.cin = cin;
+	}
+	public String getCarte() {
+		return carte;
+	}
+	public void setCarte(String carte) {
+		this.carte = carte;
+	}
+	public String getDateexp() {
+		return dateexp;
+	}
+	public void setDateexp(String dateexp) {
+		this.dateexp = dateexp;
+	}
 	public int getId_utilisateur() {
 		return id_utilisateur;
 	}

@@ -1,6 +1,7 @@
 package marcheSecondaire.filters;
 
 import java.io.IOException;
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -13,18 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class AdminFilter
+ * Servlet Filter implementation class InvestFilter
  */
-@WebFilter("/adminPages")
-public class AdminFilter implements Filter {
+@WebFilter(dispatcherTypes = {
+				DispatcherType.REQUEST, 
+				DispatcherType.FORWARD
+		}
+					, urlPatterns = { "/investPages/*" })
+public class InvestFilter implements Filter {
 	
 	public static final String ACCES_PUBLIC     = "/index.html";
-	public static final String ATT_SESSION_ADMIN = "admin";
+	public static final String ATT_SESSION_INV = "investisseur";
 
     /**
      * Default constructor. 
      */
-    public AdminFilter() {
+    public InvestFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -39,7 +44,6 @@ public class AdminFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		
 		HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
@@ -50,7 +54,7 @@ public class AdminFilter implements Filter {
          * Si l'objet utilisateur n'existe pas dans la session en cours, alors
          * l'utilisateur n'est pas connecté.
          */
-        if ( session.getAttribute( ATT_SESSION_ADMIN ) == null ) {
+        if ( session.getAttribute( ATT_SESSION_INV ) == null ) {
             /* Redirection vers la page publique */
             response.sendRedirect( request.getContextPath() + ACCES_PUBLIC );
         } else {

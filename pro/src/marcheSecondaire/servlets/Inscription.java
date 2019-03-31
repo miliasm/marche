@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import marcheSecondaire.beans.Secteur;
 import marcheSecondaire.beans.Societe;
 import marcheSecondaire.beans.Utilisateur;
 import marcheSecondaire.dao.DaoFactory;
+import marcheSecondaire.dao.SecteurDao;
 import marcheSecondaire.dao.SocieteDao;
 import marcheSecondaire.dao.UtilisateurDao;
 import marcheSecondaire.forms.InscriptionForm;
@@ -24,11 +26,13 @@ public class Inscription extends HttpServlet {
 	private String type;
 	private UtilisateurDao utilisateurdao;
 	private SocieteDao societedao;
+	private SecteurDao secteurDao;
 	
 	public void init() throws ServletException {
         DaoFactory daoFactory = DaoFactory.getInstance();
         this.utilisateurdao = daoFactory.getUtilisateurDao();
         this.societedao = daoFactory.getSocieteDao();
+        this.secteurDao = daoFactory.getSecteurDao();
     }
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,12 +61,17 @@ public class Inscription extends HttpServlet {
 			form = new InscriptionForm();
 			Utilisateur utilisateur = form.inscrireUtilisateurMmbr( request );
 			Societe societe = form.inscrireSociete();
+			Secteur secteur = form.getSecteur();
 			/* Stockage du formulaire et du bean dans l'objet request */
 	        request.setAttribute(ATT_FORM, form);
 	        request.setAttribute(ATT_USER, utilisateur);
 	        request.setAttribute(ATT_SOC, societe);
 	        this.getServletContext().getRequestDispatcher(VUE+"?type=mmbr").forward(request, response);
 	        if(form.isCorrect()) {
+	        	//System.out.println(secteur.getNom()); // debug
+	        	secteur = secteurDao.getIdByNom(secteur.getNom());
+	        	//System.out.println(secteur.getId_secteur()); // debug
+	        	societe.setId_secteur(secteur.getId_secteur());
 	        	societedao.ajouter(societe);
 	        	societe = societedao.getByNom(societe.getNom());// nouvelle objet que nous recuperons de la DB
 	        	utilisateurdao.ajouter(utilisateur, societe);
