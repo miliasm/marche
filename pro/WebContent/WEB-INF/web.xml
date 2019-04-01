@@ -44,4 +44,12 @@
     <servlet-name>CompleterInv</servlet-name>
     <url-pattern>/investPotPages/completer</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Market</servlet-name>
+    <servlet-class>marcheSecondaire.servlets.Market</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Market</servlet-name>
+    <url-pattern>/market</url-pattern>
+  </servlet-mapping>
 </web-app>

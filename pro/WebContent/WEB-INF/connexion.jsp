@@ -11,7 +11,6 @@
         <link type="text/css" rel="stylesheet" href="form.css" />
     </head>
     <body>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <section id ="connexion">
         <form id ="formulaire" method="post" action="connexion">
             <fieldset>

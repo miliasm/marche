@@ -11,7 +11,7 @@
             <p id="AM"> AssetMarket </p>
             <div id="menu">
                 <ul id="menu-deroulant">
-                    <li><a href="#">Marketplace</a></li>
+                    <li><a href="/marcheSecondaire/market">Marketplace</a></li>
                     <li><a href="/marcheSecondaire/connexion">Login</a></li>
                     <li><a href="/marcheSecondaire/">Sign Up</a>
                         <ul>

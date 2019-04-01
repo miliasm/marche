@@ -18,6 +18,10 @@ footer{
 p, legend, label, input {
        font: normal 11pt Bell MT, helvetica, sans-serif;
        }
+h3{
+	font: Bell MT, helvetica, sans-serif;
+    color:#07163B;
+}
 fieldset{
         padding: 10px;
         border: 1px #07163B solid;
@@ -43,6 +47,9 @@ form .requis{
           }
 #des{
           margin: 3px 3px 0px 50px;
+}
+#dessociete{
+	margin-left: 50px;
 }
 #secteur{
 	      margin: 3px 3px 0px 50px;

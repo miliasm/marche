@@ -89,7 +89,7 @@
          			<br/><br/>
 	                
 	                <label for="description">Description </label>
-	                <textarea rows="5" cols = "30" name = "description" ><c:out value="${societe.description}"/></textarea>
+	                <textarea id="dessociete" rows="5" cols = "30" name = "description" ><c:out value="${societe.description}"/></textarea>
 	                <!--  <input type="textarea" id="description" name="description" value="<c:out value="${societe.description}"/>" size="20" maxlength="60" />-->
 	                <span class="erreur">${form.erreurs['description']}</span>
 	                <br />
