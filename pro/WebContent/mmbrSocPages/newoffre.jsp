@@ -39,6 +39,7 @@
                 <label for="negociation">Négociable</label>
                 <input type="checkbox" name="negociable" value="1">
                 <br/>
+                <br/>
                 <label for="datenegociation">Si oui, date de fin de négociation</label>
                 <input type="date"  id="datenegociation" name="datenegociation" value=""/> 
                 <br/>
